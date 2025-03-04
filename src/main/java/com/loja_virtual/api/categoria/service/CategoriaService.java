@@ -17,7 +17,7 @@ public class CategoriaService {
     private final List<Categoria> categorias = new ArrayList<>();
 
     public Categoria criarCategoria(Categoria categoria) {
-        Categoria novaCategoria = new Categoria( randomUUID(), categoria.nome());
+        Categoria novaCategoria = new Categoria( randomUUID(), categoria.getNome());
         categorias.add(novaCategoria);
         return novaCategoria;
     }
@@ -26,7 +26,7 @@ public class CategoriaService {
 
     public Categoria listaCategoriaPorNome(String nome) {
         Categoria categoria = categorias.stream()
-                .filter(c -> c.nome().equals(nome))
+                .filter(c -> c.getNome().equals(nome))
                 .findFirst()
                 .orElseThrow(() -> new CategoriaException("Categoria não Encontrada"));
 
@@ -35,7 +35,7 @@ public class CategoriaService {
 
     public String removerCategoria(String nome) {
         Categoria categoria = categorias.stream()
-                .filter(c -> c.nome().equals(nome))
+                .filter(c -> c.getNome().equals(nome))
                 .findFirst()
                 .orElseThrow(() -> new CategoriaException("Categoria não Encontrada"));
 

@@ -18,7 +18,7 @@ public class ProdutoService {
     private final List<Produto> produtos = new ArrayList<>();
 
     public Produto criarProduto(Produto produto) {
-        Produto novoProduto = new Produto( randomUUID() ,produto.nome(), produto.descricao(), produto.preco(), produto.quantidade(), produto.categoria());
+        Produto novoProduto = new Produto( randomUUID() ,produto.getNome(), produto.getDescricao(), produto.getPreco(), produto.getQuantidade(), produto.getCategoria());
         produtos.add(novoProduto);
         return novoProduto;
     }
@@ -29,7 +29,7 @@ public class ProdutoService {
 
     public Produto buscarProduto(UUID id) {
         Produto produto = produtos.stream()
-                .filter(p -> p.id().equals(id))
+                .filter(p -> p.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new ProdutoException("Produto não encontrado"));
         return produto;
@@ -37,7 +37,7 @@ public class ProdutoService {
 
     public void removerProduto(UUID id) {
         Produto produto = produtos.stream()
-                .filter(p -> p.id().equals(id))
+                .filter(p -> p.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new ProdutoException("Produto não encontrado"));
 

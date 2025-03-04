@@ -1,10 +1,16 @@
 package com.loja_virtual.api.categoria.model;
 
+import lombok.*;
+
 import java.util.UUID;
 
-
-public record Categoria(
-         UUID id,
-         String nome
-    )
-{}
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+public class Categoria() {
+    private UUID id;
+    private String nome;
+}
