@@ -4,6 +4,8 @@ import com.loja_virtual.api.categoria.model.Categoria;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -12,11 +14,19 @@ import java.util.UUID;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Produto (){
+public class Produto {
     private UUID id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
     private int quantidade;
-    private Categoria categoria;
+    private Set<Categoria> categoria = new HashSet<>();
+
+    public void adicionaCategoria(Categoria categoria) {
+        this.categoria.add(categoria);
+    }
+
+    public void removerCategoria(Categoria categoria) {
+        this.categoria.remove(categoria);
+    }
 }

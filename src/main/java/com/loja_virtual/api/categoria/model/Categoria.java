@@ -10,7 +10,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Categoria() {
+public class Categoria {
     private UUID id;
     private String nome;
 }

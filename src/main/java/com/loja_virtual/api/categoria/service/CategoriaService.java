@@ -24,7 +24,7 @@ public class CategoriaService {
 
     public List<Categoria> listaCategorias() { return categorias; }
 
-    public Categoria listaCategoriaPorNome(String nome) {
+    public Categoria buscarCategoriaPorNome(String nome) {
         Categoria categoria = categorias.stream()
                 .filter(c -> c.getNome().equals(nome))
                 .findFirst()
