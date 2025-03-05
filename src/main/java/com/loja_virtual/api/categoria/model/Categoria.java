@@ -11,6 +11,5 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Categoria {
-    private UUID id;
     private String nome;
 }
