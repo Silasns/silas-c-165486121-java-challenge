@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/produto")
+@RequestMapping("api/v1/produtos")
 public class ProdutoController {
 
     private final ProdutoService produtoService;
@@ -46,6 +46,26 @@ public class ProdutoController {
             produtoService.removerProduto(id);
             return ResponseEntity.status(HttpStatus.OK).body("Produto removido com sucesso.");
         } catch (ProdutoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/{idProduto}/categorias/{nomeCategoria}")
+    public ResponseEntity<Object> adicionarCategoria(@PathVariable UUID idProduto, @PathVariable String nomeCategoria) {
+        try {
+            produtoService.associarProdutoCategoria(idProduto, nomeCategoria);
+            return ResponseEntity.status(HttpStatus.OK).body("Categoria associada com sucesso.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{idProduto}/categorias/{nomeCategoria}")
+    public ResponseEntity<Object> removeCategoria(@PathVariable UUID idProduto, @PathVariable String nomeCategoria) {
+        try{
+            produtoService.desassociarProdutoCategoria(idProduto, nomeCategoria);
+            return ResponseEntity.status(HttpStatus.OK).body("Categoria desassociada com sucesso.");
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }

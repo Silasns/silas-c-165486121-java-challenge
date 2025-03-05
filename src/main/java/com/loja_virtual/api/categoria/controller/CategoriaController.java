@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/categoria")
+@RequestMapping("api/v1/categorias")
 public class CategoriaController {
     private final CategoriaService categoriaService;
 
@@ -32,7 +32,7 @@ public class CategoriaController {
     @GetMapping("/{nome}")
     public ResponseEntity<Object> listarCategoriasPorNome(@PathVariable String nome) {
         try {
-            Categoria categoria = categoriaService.listaCategoriaPorNome(nome);
+            Categoria categoria = categoriaService.buscarCategoriaPorNome(nome);
             return ResponseEntity.status(HttpStatus.OK).body(categoria);
         } catch (CategoriaException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
