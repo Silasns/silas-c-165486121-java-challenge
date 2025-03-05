@@ -5,6 +5,7 @@ import com.loja_virtual.api.categoria.service.CategoriaService;
 import com.loja_virtual.api.produto.Exception.ProdutoException;
 import com.loja_virtual.api.produto.model.Produto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,15 +17,13 @@ import static java.util.UUID.randomUUID;
 @Service
 public class ProdutoService {
 
-    private final List<Produto> produtos = new ArrayList<>();
-    private final CategoriaService categoriaService;
+    @Autowired
+    private CategoriaService categoriaService;
 
-    public ProdutoService(CategoriaService categoriaService) {
-        this.categoriaService = categoriaService;
-    }
+    private final List<Produto> produtos = new ArrayList<>();
 
     public Produto criarProduto(Produto produto) {
-        Produto novoProduto = new Produto( randomUUID() ,produto.getNome(), produto.getDescricao(), produto.getPreco(), produto.getQuantidade(), produto.getCategoria());
+        Produto novoProduto = new Produto( randomUUID() ,produto.getNome(), produto.getDescricao(), produto.getPreco(), produto.getQuantidadeDisponivel(), produto.getCategoria());
         produtos.add(novoProduto);
         return novoProduto;
     }
@@ -34,11 +33,10 @@ public class ProdutoService {
     }
 
     public Produto buscarProduto(UUID id) {
-        Produto produto = produtos.stream()
+        return produtos.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new ProdutoException("Produto não encontrado"));
-        return produto;
     }
 
     public void removerProduto(UUID id) {
@@ -64,7 +62,7 @@ public class ProdutoService {
                 .filter(produtoCategoria -> produtoCategoria.getNome().equals(categoria.getNome()))
                 .findFirst()
                         .orElseThrow(() -> new ProdutoException("Categoria não esta associada a este produto"));
-        
+
         produto.removerCategoria(categoria);
     }
 
