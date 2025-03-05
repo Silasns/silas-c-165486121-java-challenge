@@ -19,7 +19,7 @@ public class Produto {
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    private int quantidade;
+    private int quantidadeDisponivel;
     private Set<Categoria> categoria = new HashSet<>();
 
     public void adicionaCategoria(Categoria categoria) {
