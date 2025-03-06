@@ -1,5 +1,6 @@
 package com.loja_virtual.api.categoria.controller;
 
+import com.loja_virtual.api.categoria.dto.CategoriaDTO;
 import com.loja_virtual.api.categoria.exception.CategoriaException;
 import com.loja_virtual.api.categoria.model.Categoria;
 import com.loja_virtual.api.categoria.service.CategoriaProxy;
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +35,10 @@ public class CategoriaController {
             @ApiResponse(responseCode = "400", description="Parametros inválidos"),
             @ApiResponse(responseCode = "500", description="Erro ao realizar cadastro de categoria")
     })
-    @PostMapping("/{categoria}")
+    @PostMapping
     public ResponseEntity<Object> cadastrarCategoria(
-            @Parameter(description = "Nome da categoria a ser criada.", required = true, example = "vestuario")
-            @PathVariable String categoria) {
+            @Parameter(description = "Nome da categoria a ser criada.")
+            @Valid @RequestBody CategoriaDTO categoria) {
         Categoria novaCategoria = categoriaService.criarCategoria(categoria);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaCategoria);
     }

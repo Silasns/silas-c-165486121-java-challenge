@@ -1,14 +1,18 @@
 package com.loja_virtual.api.produto.controller;
 
+import com.loja_virtual.api.produto.dto.ProdutoDTO;
 import com.loja_virtual.api.produto.exception.ProdutoException;
 import com.loja_virtual.api.produto.model.Produto;
 import com.loja_virtual.api.produto.service.ProdutoProxy;
 import com.loja_virtual.api.produto.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,7 +41,7 @@ public class ProdutoController {
             @ApiResponse(responseCode = "500", description="Erro ao realizar cadastro de produto")
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Produto> cadastrarProduto(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> cadastrarProduto(@Valid @RequestBody ProdutoDTO produto) {
         Produto novoProduto = produtoService.criarProduto(produto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
     }

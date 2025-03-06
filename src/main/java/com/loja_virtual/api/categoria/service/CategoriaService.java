@@ -1,5 +1,6 @@
 package com.loja_virtual.api.categoria.service;
 
+import com.loja_virtual.api.categoria.dto.CategoriaDTO;
 import com.loja_virtual.api.categoria.exception.CategoriaException;
 import com.loja_virtual.api.categoria.repository.CategoriaRepository;
 import com.loja_virtual.api.categoria.model.Categoria;
@@ -16,8 +17,8 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public Categoria criarCategoria(String categoria) {
-        Categoria novaCategoria = new Categoria(categoria);
+    public Categoria criarCategoria(CategoriaDTO categoria) {
+        Categoria novaCategoria = new Categoria(categoria.getNome());
         categoriaRepository.salvarCategoria(novaCategoria);
         return novaCategoria;
     }
