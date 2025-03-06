@@ -3,9 +3,7 @@ package com.loja_virtual.api.carrinho.model;
 import com.loja_virtual.api.produto.model.Produto;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -22,6 +20,11 @@ public class Carrinho {
     }
 
     public void removeProduto(Produto produto){
-        this.produtos.remove(produto);
+        this.produtos.stream()
+            .filter(p -> p.getId().equals(produto.getId()))
+            .findFirst()
+            .ifPresent(
+                    p -> produtos.remove(p)
+            );
     }
 }

@@ -18,11 +18,10 @@ public class CarrinhoController {
     @Autowired
     private CarrinhoService carrinhoService;
 
-    @PostMapping("/{idProduto}")
-    public ResponseEntity<Object> AdicionarProdutoCarrinho(@PathVariable UUID idProduto) {
+    @PostMapping
+    public ResponseEntity<Object> AdicionarProdutoCarrinho(@RequestBody Produto produto) {
         try {
-
-            carrinhoService.adicionarProdutoCarrinho(idProduto);
+            carrinhoService.adicionarProdutoCarrinho(produto);
         return ResponseEntity.status(HttpStatus.OK).body("Produto adicionado ao carrinho");
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -34,10 +33,10 @@ public class CarrinhoController {
         return ResponseEntity.status(HttpStatus.OK).body(carrinhoService.listarCarrinho());
     }
 
-    @DeleteMapping("/{idProduto}")
-    public ResponseEntity<Object> DeletarProdutoCarrinho(@PathVariable UUID idProduto) {
+    @DeleteMapping
+    public ResponseEntity<Object> DeletarProdutoCarrinho(@RequestBody Produto produto) {
         try {
-            carrinhoService.removerProdutoCarrinho(idProduto);
+            carrinhoService.removerProdutoCarrinho(produto);
             return ResponseEntity.status(HttpStatus.OK).body("Produto removido do carrinho");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

@@ -1,6 +1,6 @@
 package com.loja_virtual.api.categoria.controller;
 
-import com.loja_virtual.api.categoria.Exception.CategoriaException;
+import com.loja_virtual.api.categoria.exception.CategoriaException;
 import com.loja_virtual.api.categoria.model.Categoria;
 import com.loja_virtual.api.categoria.service.CategoriaProxy;
 import com.loja_virtual.api.categoria.service.CategoriaService;
