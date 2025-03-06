@@ -1,12 +1,13 @@
 package com.loja_virtual.api.categoria.service;
 
 import com.loja_virtual.api.categoria.Exception.CategoriaException;
+import com.loja_virtual.api.categoria.Repository.CategoriaRepository;
 import com.loja_virtual.api.categoria.model.Categoria;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import static java.util.UUID.randomUUID;
 
@@ -14,32 +15,27 @@ import static java.util.UUID.randomUUID;
 @RequiredArgsConstructor
 public class CategoriaService {
 
-    private final List<Categoria> categorias = new ArrayList<>();
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
-    public Categoria criarCategoria(Categoria categoria) {
-        Categoria novaCategoria = new Categoria( randomUUID(), categoria.getNome());
-        categorias.add(novaCategoria);
+    public Categoria criarCategoria(String categoria) {
+        Categoria novaCategoria = new Categoria(categoria);
+        categoriaRepository.salvarCategoria(novaCategoria);
         return novaCategoria;
     }
 
-    public List<Categoria> listaCategorias() { return categorias; }
+    public Set<Categoria> listaCategorias() { return categoriaRepository.listarTodos(); }
 
     public Categoria buscarCategoriaPorNome(String nome) {
-        Categoria categoria = categorias.stream()
-                .filter(c -> c.getNome().equals(nome))
-                .findFirst()
+        Categoria categoria = categoriaRepository.buscarCategoriaPorNome(nome)
                 .orElseThrow(() -> new CategoriaException("Categoria não Encontrada"));
-
         return categoria;
     }
 
     public String removerCategoria(String nome) {
-        Categoria categoria = categorias.stream()
-                .filter(c -> c.getNome().equals(nome))
-                .findFirst()
+        categoriaRepository.buscarCategoriaPorNome(nome)
                 .orElseThrow(() -> new CategoriaException("Categoria não Encontrada"));
-
-        categorias.remove(categoria);
+        categoriaRepository.removerCategoria(nome);
         return "Categoria removida com sucesso.";
     }
 
