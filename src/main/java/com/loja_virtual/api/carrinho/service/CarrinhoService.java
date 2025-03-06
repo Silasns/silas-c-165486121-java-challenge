@@ -22,7 +22,7 @@ public class CarrinhoService {
     private CarrinhoRepository carrinhoRepository;
 
     public void adicionarProdutoCarrinho(Produto produto) {
-        carrinhoRepository.inserir(produto);
+        carrinhoRepository.inserir(produtoService.buscarProduto(produto.getId()));
     }
 
     public Carrinho listarCarrinho() {

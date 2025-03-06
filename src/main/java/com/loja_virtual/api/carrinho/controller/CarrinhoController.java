@@ -1,6 +1,7 @@
 package com.loja_virtual.api.carrinho.controller;
 
 import com.loja_virtual.api.carrinho.model.Carrinho;
+import com.loja_virtual.api.carrinho.service.CarrinhoProxy;
 import com.loja_virtual.api.carrinho.service.CarrinhoService;
 import com.loja_virtual.api.produto.model.Produto;
 import com.loja_virtual.api.produto.service.ProdutoService;
@@ -17,11 +18,13 @@ public class CarrinhoController {
 
     @Autowired
     private CarrinhoService carrinhoService;
+    @Autowired
+    private CarrinhoProxy carrinhoProxy;
 
     @PostMapping
     public ResponseEntity<Object> AdicionarProdutoCarrinho(@RequestBody Produto produto) {
         try {
-            carrinhoService.adicionarProdutoCarrinho(produto);
+            carrinhoProxy.adicionarProdutoCarrinho(produto);
         return ResponseEntity.status(HttpStatus.OK).body("Produto adicionado ao carrinho");
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
