@@ -4,6 +4,10 @@ import com.loja_virtual.api.categoria.exception.CategoriaException;
 import com.loja_virtual.api.categoria.model.Categoria;
 import com.loja_virtual.api.categoria.service.CategoriaProxy;
 import com.loja_virtual.api.categoria.service.CategoriaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("api/v1/categorias")
+@RequestMapping(value="api/v1/categorias", produces = {"application/json"})
+@Tag(name = "categoria", description = "Operações a cerca das categorias para produtos")
 public class CategoriaController {
 
     @Autowired
@@ -20,17 +25,38 @@ public class CategoriaController {
     @Autowired
     private CategoriaProxy categoriaProxy;
 
+    @Operation(summary = "Realiza cadastro de novas categorias")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description="Categoria cadastrada com sucesso"),
+            @ApiResponse(responseCode = "422", description="Dados da requisição inválido"),
+            @ApiResponse(responseCode = "400", description="Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description="Erro ao realizar cadastro de categoria")
+    })
     @PostMapping("/{categoria}")
     public ResponseEntity<Object> cadastrarCategoria(@PathVariable String categoria) {
         Categoria novaCategoria = categoriaService.criarCategoria(categoria);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaCategoria);
     }
 
+    @Operation(summary = "Busca todas as categorias cadastrados", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description="Busca realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description="Dados da requisição inválido"),
+            @ApiResponse(responseCode = "400", description="Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description="Erro ao realizar busca de categorias")
+    })
     @GetMapping
     public ResponseEntity<Set<Categoria>> listarCategorias() {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.listaCategorias());
     }
 
+    @Operation(summary = "Busca a categoria por nome", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description="Busca realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description="Dados da requisição inválido"),
+            @ApiResponse(responseCode = "400", description="Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description="Erro ao realizar busca da categoria")
+    })
     @GetMapping("/{nome}")
     public ResponseEntity<Object> listarCategoriasPorNome(@PathVariable String nome) {
         try {
@@ -41,6 +67,15 @@ public class CategoriaController {
         }
     }
 
+    @Operation(summary = "Deleta uma categoria pelo nome",
+                description = "Categorias que estejam associadas a produtos e que esteja associada a um produto, que esteja no carrinho, não podem ser excluídas;",
+                method = "DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description="Categoria removida com sucesso"),
+            @ApiResponse(responseCode = "422", description="Dados da requisição inválido"),
+            @ApiResponse(responseCode = "400", description="Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description="Erro ao deletar uma categoria")
+    })
     @DeleteMapping("/{nome}")
     public ResponseEntity<Object> removerCategoria(@PathVariable String nome) {
         try {
