@@ -1,4 +1,4 @@
-package com.loja_virtual.api.categoria.Repository;
+package com.loja_virtual.api.categoria.repository;
 
 import com.loja_virtual.api.categoria.model.Categoria;
 import org.springframework.stereotype.Repository;
@@ -29,9 +29,7 @@ public class CategoriaRepository {
 
     public Boolean existeCategoria(String nome) {
         return categorias.stream()
-                .filter( categoria -> categoria.getNome().equalsIgnoreCase(nome))
-                .findFirst()
-                .isPresent();
+                .anyMatch(categoria -> categoria.getNome().equalsIgnoreCase(nome));
     }
 
 

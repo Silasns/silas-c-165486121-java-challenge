@@ -1,15 +1,13 @@
 package com.loja_virtual.api.categoria.service;
 
-import com.loja_virtual.api.categoria.Exception.CategoriaException;
-import com.loja_virtual.api.categoria.Repository.CategoriaRepository;
+import com.loja_virtual.api.categoria.exception.CategoriaException;
+import com.loja_virtual.api.categoria.repository.CategoriaRepository;
 import com.loja_virtual.api.categoria.model.Categoria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
-import static java.util.UUID.randomUUID;
 
 @Service
 @RequiredArgsConstructor

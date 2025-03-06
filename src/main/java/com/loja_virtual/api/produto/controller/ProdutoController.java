@@ -1,8 +1,10 @@
 package com.loja_virtual.api.produto.controller;
 
-import com.loja_virtual.api.produto.Exception.ProdutoException;
+import com.loja_virtual.api.produto.exception.ProdutoException;
 import com.loja_virtual.api.produto.model.Produto;
+import com.loja_virtual.api.produto.service.ProdutoProxy;
 import com.loja_virtual.api.produto.service.ProdutoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,11 @@ import java.util.UUID;
 @RequestMapping("api/v1/produtos")
 public class ProdutoController {
 
-    private final ProdutoService produtoService;
-    public ProdutoController(ProdutoService produtoService) {
-        this.produtoService = produtoService;
-    }
+    @Autowired
+    private ProdutoService produtoService;
+
+    @Autowired
+    private ProdutoProxy produtoProxy;
 
     @PostMapping
     public ResponseEntity<Produto> cadastrarProduto(@RequestBody Produto produto) {
@@ -43,7 +46,7 @@ public class ProdutoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> removeProduto(@PathVariable UUID id) {
         try {
-            produtoService.removerProduto(id);
+            produtoProxy.removerProduto(id);
             return ResponseEntity.status(HttpStatus.OK).body("Produto removido com sucesso.");
         } catch (ProdutoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

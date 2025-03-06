@@ -1,8 +1,7 @@
 package com.loja_virtual.api.categoria.service;
 
-import com.loja_virtual.api.categoria.Exception.CategoriaException;
-import com.loja_virtual.api.categoria.Repository.CategoriaRepository;
-import com.loja_virtual.api.categoria.model.Categoria;
+import com.loja_virtual.api.categoria.exception.CategoriaException;
+import com.loja_virtual.api.categoria.repository.CategoriaRepository;
 import com.loja_virtual.api.produto.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,7 @@ public class CategoriaProxy implements CategoriaInterface {
     @Autowired
     private ProdutoService produtoService;
 
+    @Override
     public String removerCategoria(String nome){
         categoriaRepository.buscarCategoriaPorNome(nome)
                 .orElseThrow(() -> new CategoriaException("Categoria não Encontrada"));
