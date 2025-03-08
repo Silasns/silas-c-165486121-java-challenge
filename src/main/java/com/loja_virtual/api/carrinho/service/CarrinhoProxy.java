@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CarrinhoProxy implements CarrinhoInterface {
+
     private final CarrinhoService carrinhoService;
+    private final ProdutoService produtoService;
 
-    public CarrinhoProxy(CarrinhoService carrinhoService) {
+    public CarrinhoProxy(CarrinhoService carrinhoService, ProdutoService produtoService) {
         this.carrinhoService = carrinhoService;
+        this.produtoService = produtoService;
     }
-
-    @Autowired
-    private ProdutoService produtoService;
 
     @Override
     public void adicionarProdutoCarrinho(Produto produto) {

@@ -11,15 +11,14 @@ import org.springframework.stereotype.Service;
 public class CategoriaProxy implements CategoriaInterface {
 
     private final CategoriaService categoriaService;
+    private final CategoriaRepository categoriaRepository;
+    private final ProdutoService produtoService;
 
-    public CategoriaProxy(CategoriaService categoriaService) {
+    public CategoriaProxy(CategoriaService categoriaService, CategoriaRepository categoriaRepository, ProdutoService produtoService) {
         this.categoriaService = categoriaService;
+        this.categoriaRepository = categoriaRepository;
+        this.produtoService = produtoService;
     }
-
-    @Autowired
-    private CategoriaRepository categoriaRepository;
-    @Autowired
-    private ProdutoService produtoService;
 
     @Override
     public String removerCategoria(String nome){

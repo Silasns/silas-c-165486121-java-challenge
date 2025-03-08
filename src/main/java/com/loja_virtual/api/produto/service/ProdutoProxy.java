@@ -12,16 +12,14 @@ import java.util.UUID;
 public class ProdutoProxy implements ProdutoInterface {
 
     private final ProdutoService produtoService;
+    private final ProdutoRepository produtoRepository;
+    private final CarrinhoRepository carrinhoRepository;
 
-    public ProdutoProxy(ProdutoService produtoService) {
+    public ProdutoProxy(ProdutoService produtoService, ProdutoRepository produtoRepository, CarrinhoRepository carrinhoRepository) {
         this.produtoService = produtoService;
+        this.produtoRepository = produtoRepository;
+        this.carrinhoRepository = carrinhoRepository;
     }
-
-    @Autowired
-    private ProdutoRepository produtoRepository;
-
-    @Autowired
-    private CarrinhoRepository carrinhoRepository;
 
     @Override
     public String removerProduto(UUID id){
