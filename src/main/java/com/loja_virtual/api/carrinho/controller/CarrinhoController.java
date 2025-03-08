@@ -4,7 +4,6 @@ import com.loja_virtual.api.carrinho.model.Carrinho;
 import com.loja_virtual.api.carrinho.service.CarrinhoProxy;
 import com.loja_virtual.api.carrinho.service.CarrinhoService;
 import com.loja_virtual.api.produto.model.Produto;
-import com.loja_virtual.api.produto.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
