@@ -85,6 +85,9 @@ A API possui documentação automática via Swagger UI.
 Após rodar a aplicação, acesse: 
 Swagger UI: http://localhost:8080/swagger-ui/index.html
 
+Ou acesso sem necessidade de rodar o projeto pelo endereço:
+https://loja-virtual-api.onrender.com/swagger-ui/index.html
+
 ---
 
 ✅ Testes
