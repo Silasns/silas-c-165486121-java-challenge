@@ -12,7 +12,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Carrinho {
-    private UUID id;
+    private UUID id = UUID.randomUUID();
     private List<Produto> produtos = new ArrayList<>();
 
     public void adicionarProduto(Produto produto){

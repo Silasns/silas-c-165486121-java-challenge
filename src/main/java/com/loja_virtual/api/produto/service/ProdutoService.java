@@ -2,6 +2,7 @@ package com.loja_virtual.api.produto.service;
 
 import com.loja_virtual.api.categoria.model.Categoria;
 import com.loja_virtual.api.categoria.service.CategoriaService;
+import com.loja_virtual.api.produto.dto.ProdutoDTO;
 import com.loja_virtual.api.produto.exception.ProdutoException;
 import com.loja_virtual.api.produto.repository.ProdutoRepository;
 import com.loja_virtual.api.produto.model.Produto;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
-import static java.util.UUID.randomUUID;
 
 @Service
 public class ProdutoService {
@@ -21,8 +21,14 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public Produto criarProduto(Produto produto) {
-        Produto novoProduto = new Produto( randomUUID() ,produto.getNome(), produto.getDescricao(), produto.getPreco(), produto.getQuantidadeDisponivel(), produto.getCategoria());
+    public Produto criarProduto(ProdutoDTO produtoDTO) {
+        Produto novoProduto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome(produtoDTO.getNome())
+                .descricao(produtoDTO.getDescricao())
+                .preco(produtoDTO.getPreco())
+                .quantidadeDisponivel(produtoDTO.getQuantidadeDisponivel())
+                .build();
         produtoRepository.salvarProduto(novoProduto);
         return novoProduto;
     }

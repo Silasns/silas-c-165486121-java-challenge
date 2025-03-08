@@ -14,12 +14,15 @@ import java.util.UUID;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Produto {
     private UUID id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
     private int quantidadeDisponivel;
+
+    @Builder.Default
     private Set<Categoria> categoria = new HashSet<>();
 
     public void adicionaCategoria(Categoria categoria) {

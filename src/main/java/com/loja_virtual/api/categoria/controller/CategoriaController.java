@@ -1,13 +1,16 @@
 package com.loja_virtual.api.categoria.controller;
 
+import com.loja_virtual.api.categoria.dto.CategoriaDTO;
 import com.loja_virtual.api.categoria.exception.CategoriaException;
 import com.loja_virtual.api.categoria.model.Categoria;
 import com.loja_virtual.api.categoria.service.CategoriaProxy;
 import com.loja_virtual.api.categoria.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +35,10 @@ public class CategoriaController {
             @ApiResponse(responseCode = "400", description="Parametros inválidos"),
             @ApiResponse(responseCode = "500", description="Erro ao realizar cadastro de categoria")
     })
-    @PostMapping("/{categoria}")
-    public ResponseEntity<Object> cadastrarCategoria(@PathVariable String categoria) {
+    @PostMapping
+    public ResponseEntity<Object> cadastrarCategoria(
+            @Parameter(description = "Nome da categoria a ser criada.")
+            @Valid @RequestBody CategoriaDTO categoria) {
         Categoria novaCategoria = categoriaService.criarCategoria(categoria);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaCategoria);
     }
@@ -58,7 +63,9 @@ public class CategoriaController {
             @ApiResponse(responseCode = "500", description="Erro ao realizar busca da categoria")
     })
     @GetMapping("/{nome}")
-    public ResponseEntity<Object> listarCategoriasPorNome(@PathVariable String nome) {
+    public ResponseEntity<Object> listarCategoriasPorNome(
+            @Parameter(description = "Nome da categoria a ser buscada.", required = true, example = "vestuario")
+            @PathVariable String nome) {
         try {
             Categoria categoria = categoriaService.buscarCategoriaPorNome(nome);
             return ResponseEntity.status(HttpStatus.OK).body(categoria);
@@ -77,7 +84,9 @@ public class CategoriaController {
             @ApiResponse(responseCode = "500", description="Erro ao deletar uma categoria")
     })
     @DeleteMapping("/{nome}")
-    public ResponseEntity<Object> removerCategoria(@PathVariable String nome) {
+    public ResponseEntity<Object> removerCategoria(
+            @Parameter(description = "Nome da categoria a ser removida.", required = true, example = "vestuario")
+            @PathVariable String nome) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(categoriaProxy.removerCategoria(nome));
         } catch (CategoriaException e) {
