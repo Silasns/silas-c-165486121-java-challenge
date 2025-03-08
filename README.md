@@ -23,7 +23,10 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 - [Git](https://git-scm.com/downloads)
 
 ---
-
+## 📌 Como acessar a api
+Você pode acessar com endereço:
+https://loja-virtual-api.onrender.com
+----
 ## 📌 Como Rodar o Projeto Localmente
 
 ### 1️⃣ Clone o Repositório
